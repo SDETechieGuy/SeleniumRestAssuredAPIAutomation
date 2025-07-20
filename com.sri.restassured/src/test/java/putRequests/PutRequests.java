@@ -1,4 +1,4 @@
-package postRequests;
+package putRequests;
 
 import org.json.simple.JSONObject;
 import org.testng.Assert;
@@ -42,26 +42,26 @@ import io.restassured.specification.RequestSpecification;
  * 
  * 
  */
-public class PostRequests {
+public class PutRequests {
 
 	@Test
-	public void postMethod()
+	public void putMethod()
 	{
 		RestAssured.baseURI="http://localhost:3000";
 		RequestSpecification request = RestAssured.given();
 		//request.accept(ContentType.JSON);
 		request.headers("Content-Type","application/json");
 		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("id",28);
-		jsonObj.put("title", "28th title");
-		jsonObj.put("views",500);
-		Response resp = request.body(jsonObj.toJSONString()).post("/posts");
+		jsonObj.put("id",26);
+		jsonObj.put("title", "26th title information updated by Put");
+		jsonObj.put("views",10000);
+		Response resp = request.body(jsonObj.toJSONString()).put("/posts/26");
 		int statusCode = resp.getStatusCode();
 		String statusLine = resp.getStatusLine();
 		String respString = resp.body().asPrettyString();
 		
-		System.out.println("POST Call Resp Code:"+statusCode+"POST Call Status Message:"+statusLine);
-		System.out.println("POST Call Resp String:"+respString);
-		Assert.assertEquals(statusCode,201);
+		System.out.println("PUT Call Resp Code:"+statusCode+"PUT Call Status Message:"+statusLine);
+		System.out.println("PUT Call Resp String:"+respString);
+		Assert.assertEquals(statusCode,200);
 	}
 }

@@ -1,4 +1,4 @@
-package postRequests;
+package deleteRequests;
 
 import org.json.simple.JSONObject;
 import org.testng.Assert;
@@ -42,26 +42,22 @@ import io.restassured.specification.RequestSpecification;
  * 
  * 
  */
-public class PostRequests {
+public class DeleteRequests {
 
 	@Test
-	public void postMethod()
+	public void deleteMethod()
 	{
 		RestAssured.baseURI="http://localhost:3000";
 		RequestSpecification request = RestAssured.given();
 		//request.accept(ContentType.JSON);
 		request.headers("Content-Type","application/json");
-		JSONObject jsonObj = new JSONObject();
-		jsonObj.put("id",28);
-		jsonObj.put("title", "28th title");
-		jsonObj.put("views",500);
-		Response resp = request.body(jsonObj.toJSONString()).post("/posts");
+		Response resp = request.delete("/posts/10");
 		int statusCode = resp.getStatusCode();
 		String statusLine = resp.getStatusLine();
 		String respString = resp.body().asPrettyString();
 		
-		System.out.println("POST Call Resp Code:"+statusCode+"POST Call Status Message:"+statusLine);
-		System.out.println("POST Call Resp String:"+respString);
-		Assert.assertEquals(statusCode,201);
+		System.out.println("DELETE Call Resp Code:"+statusCode+"DELETE Call Status Message:"+statusLine);
+		System.out.println("DELETE Call Resp String:"+respString);
+		Assert.assertEquals(statusCode,200);
 	}
 }
